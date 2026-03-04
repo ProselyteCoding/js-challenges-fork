@@ -13,6 +13,7 @@
     "cli": "node ./lib/node/app.mjs",
     "build": "rollup -c rollup.config.js",
     "gen-manifest": "node ./lib/scripts/gen-manifest.mjs",
+    "bootstrap:questions": "node ./lib/scripts/bootstrap-from-readme.mjs",
     "release": "bumpp",
     "lint": "eslint . --ext .js,.mjs",
     "lint:fix": "eslint . --ext .js,.mjs --fix",
