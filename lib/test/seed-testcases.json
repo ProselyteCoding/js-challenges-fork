@@ -1,0 +1,12 @@
+{
+  "_readme": "仅含 JSON 可序列化的 input/expected；题号 = 目录名前缀数字。可按题补充后执行 npm run bootstrap:practice -- --force-testcases",
+  "313": {
+    "cases": [
+      {
+        "name": "121 为回文数",
+        "input": 121,
+        "expected": true
+      }
+    ]
+  }
+}

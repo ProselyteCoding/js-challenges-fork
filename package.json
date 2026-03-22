@@ -14,6 +14,8 @@
     "build": "rollup -c rollup.config.js",
     "gen-manifest": "node ./lib/scripts/gen-manifest.mjs",
     "bootstrap:questions": "node ./lib/scripts/bootstrap-from-readme.mjs",
+    "bootstrap:practice": "node ./lib/scripts/bootstrap-practice.mjs",
+    "sync:tests": "node ./lib/scripts/sync-problem-tests.mjs",
     "release": "bumpp",
     "lint": "eslint . --ext .js,.mjs",
     "lint:fix": "eslint . --ext .js,.mjs --fix",

@@ -1,0 +1,9 @@
+{
+  "cases": [
+    {
+      "name": "121 为回文数",
+      "input": 121,
+      "expected": true
+    }
+  ]
+}

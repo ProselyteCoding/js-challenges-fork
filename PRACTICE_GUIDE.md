@@ -54,6 +54,57 @@ npm run bootstrap:questions
 
 ---
 
+## 一（补充）、批量生成练习占位与统一测试
+
+一键为**所有题目**生成 `playground/*.js`（与 `template.js` 一致，仅占位）、并写入统一测试入口与 `testcases.json`：
+
+```bash
+npm run bootstrap:practice
+```
+
+- **默认**：若某题 `playground/<题>.js` 已存在，**不会覆盖**（避免冲掉你正在写的答案）。
+- **强制用模板覆盖练习文件**（慎用，会清空作答）：
+
+```bash
+npm run bootstrap:practice -- --force-playground
+```
+
+- **覆盖 `test.js`**（统一测试入口有更新时）：
+
+```bash
+npm run bootstrap:practice -- --force-tests
+```
+
+- **用 `lib/test/seed-testcases.json` 里的种子覆盖各题 `testcases.json`**：
+
+```bash
+npm run bootstrap:practice -- --force-testcases
+```
+
+### 测试如何判题
+
+- 绝大多数题目模板为 `function solution(input) { ... }` + `export default solution`：
+  - **标准接口**：`solution` 必须是函数，且**不能**再保留模板里的占位注释「请在这里实现您的解决方案」。
+  - **功能用例**：由同目录下的 **`testcases.json`** 的 `cases` 数组驱动，每项为 `{ "name"?, "input", "expected" }`（须为 JSON 可序列化值）。
+  - 若某题 **没有** 在 `testcases.json` 中配置 `cases`，则功能测试会 **skip**，仅跑接口校验（便于你先搭环境，再自己加用例）。
+- **例外**：`1-promise-all` 为 `MyPromise` 挂载型模板，**不**覆盖其 `test.js`，仍使用题目自带的手写测试。
+
+可在 `lib/test/seed-testcases.json` 中按**题号**（目录名前缀数字）补充种子用例，再执行 `--force-testcases` 同步到各题；也可直接编辑 `questions/<题>/testcases.json`。
+
+### 按题目分发的测试（推荐了解）
+
+- 多数题的断言由 **`lib/test/problem-registry.mjs`** 按**题目目录名**选择不同逻辑（如 `array-prototype-map`、`实现-promise-race`），实现位于 **`lib/test/runners/`**。
+- 未命中专门规则时，仍使用 **`testcases.json`** 驱动 `solution(input)` 测试。
+- 修改注册表或 Runner 后，可重新同步各题 `test.js` 入口（**不覆盖** `1-promise-all` 的手写测试）：
+
+```bash
+npm run sync:tests
+```
+
+详见 `lib/test/README.md`。
+
+---
+
 ## 二、题目目录结构说明
 
 以题目 `1-promise-all` 为例，标准结构为：
